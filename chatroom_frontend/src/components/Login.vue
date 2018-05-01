@@ -17,14 +17,15 @@
 </template>
 
 <script>
+
 export default {
   name: 'Login',
-  data: {
+  data: function () {
     user: this.name
   },
   methods: {
     submit: function() {
-      algo_de_vue_router(this.user)
+      return this.user
     }
   }
 }

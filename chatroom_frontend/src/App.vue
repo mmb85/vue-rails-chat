@@ -1,5 +1,5 @@
 <template>
-  <login algo="ENTRAR" />
+  <router-link to="/roomslist">Go to Foo</router-link>
 </template>
 
 <script>

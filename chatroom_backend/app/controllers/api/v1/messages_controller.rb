@@ -1,11 +1,18 @@
 module Api
   module V1
     class MessagesController < ApplicationController
-      #POST
       def create
-        Message.create!(text: 'sadfsdfgdgf', room: Room.first, user: User.first)
+        begin
+          text = params[:text]
+          room = Room.find_by(name: params[:room])
+          user = User.find_by(name: params[:user])
 
-        render :json => {}
+          Message.create!(text: text, room: room, user: user) if text && room && user
+
+          render :json => {message: "Message created:\n #{room.name} || #{user.name}\n#{text}"}
+        rescue => e
+          render :json => {error: e.message}, status: 500
+        end
       end
 
       def index
