@@ -4,9 +4,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      resource :rooms do
-        # get :lastest_20_message
-      end
+      resource :rooms
       resource :users
       resources :messages
     end

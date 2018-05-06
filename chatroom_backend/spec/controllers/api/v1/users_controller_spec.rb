@@ -3,23 +3,19 @@ require 'spec_helper'
 
 describe Api::V1::UsersController, :type => :api do
   context 'create an user' do
-    # let! sentence just to use factory_bot to mockup a user, as an example of use of this gem
-    let!(:user) { create(:user, name: 'Juana') }
+    let(:valid_params) { { user: { name: 'Jane' } } }
 
     before do
-      post '/api/v1/users?name=Jane'
+      post "/api/v1/users", valid_params
     end
 
     it 'User created' do
-      expect(last_response.status).to eq 200
-      expect(last_response.body.include?('Jane')).to eq true
-      expect(User.count).to eq(2)
+      expect(User.count).to be(1)
     end
 
-    it 'User not creted due to validation name' do
-      post '/api/v1/users?name=Jane'
-      expect(last_response.status).to eq 500
-      expect(last_response.body.include?('Name is already taken')).to eq true
+    it 'User not created due to params validations' do
+      post "/api/v1/users", valid_params
+      expect(User.count).to be(1)
     end
   end
 end

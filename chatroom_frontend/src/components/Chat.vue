@@ -3,8 +3,8 @@
     <hr/>
     <h2 class="login col-sm-4 offset-sm-4 text-center">{{ this.room }}</h2>
     <hr/>
-    <span v-if="messages.length == 0">No previous message for this Room</span>
     <div class="border border-primary rounded px-3 mx-3">
+      <div class="text-center" v-if="messages.length == 0">No previous message for this Room</div>
       <ul id="example-1">
         <li style="list-style-type: none;" v-for="(message, index) in lastMessages" v-bind:key="index">
           {{ message }}

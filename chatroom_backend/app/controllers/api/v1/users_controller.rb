@@ -3,16 +3,6 @@ require 'pry'
 module Api
   module V1
     class UsersController < ApplicationController
-      def index
-        @users = User.order('created_at DESC')
-
-        render json: @users.as_json(only: [:name])
-      end
-
-      def show
-        index
-      end
-
       def create
         user = User.find_or_initialize_by(user_params)
 
