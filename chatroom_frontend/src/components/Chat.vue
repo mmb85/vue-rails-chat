@@ -1,16 +1,23 @@
 <template>
   <div>
-    <h1> {{ this.room }}</h1>
+    <hr/>
+    <h2 class="login col-sm-4 offset-sm-4 text-center">{{ this.room }}</h2>
+    <hr/>
     <span v-if="messages.length == 0">No previous message for this Room</span>
-    <ul id="example-1">
-      <li v-for="(message, index) in lastMessages" v-bind:key="index">
-        {{ message }}
-      </li>
-    </ul>
-    <textarea v-model="message" placeholder="your message goes here"></textarea>
-    <button class="btn btn-primary solid blank js-login__submit"
-      @click="submit">Send  </button>
-    <button><a @click="$router.go(-1)">back</a></button>
+    <div class="border border-primary rounded px-3 mx-3">
+      <ul id="example-1">
+        <li style="list-style-type: none;" v-for="(message, index) in lastMessages" v-bind:key="index">
+          {{ message }}
+        </li>
+      </ul>
+    </div>
+    <br/>
+    <div class="px-3 mx-3">
+      <textarea v-model="message"  v-on:keyup.enter="submit" placeholder="your message goes here"></textarea>
+      <button class="btn btn-primary solid blank js-login__submit"
+        @click="submit">Send  </button>
+      <button class="btn solid"><a @click="$router.go(-1)">back</a></button>
+    </div>
   </div>
 </template>
 
@@ -48,7 +55,9 @@ export default {
       this.$http.post('http://localhost:3000/api/v1/messages', { user: this.$route.query.user, room: this.room, text: this.message })
         .then(response => {
           // this.messages.push(this.message)
-          this.messageChannel.send({ text: this.message, user: this.$route.query.user })
+          if (this.message) {
+            this.messageChannel.send({ text: this.message, user: this.$route.query.user })
+          }
           this.message = null
         })
     }
