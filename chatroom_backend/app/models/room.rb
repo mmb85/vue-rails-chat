@@ -6,5 +6,5 @@ class Room
   has_many :messages
   has_many :users
 
-  validates_presence_of :name
+  validates :name, uniqueness: true, presence: true
 end

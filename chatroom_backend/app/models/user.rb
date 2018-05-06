@@ -4,6 +4,7 @@ class User
   field :name, type: String
 
   has_many :messages
+
   validates :name, uniqueness: true, presence: true
 end
                 

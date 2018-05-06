@@ -12,6 +12,9 @@
         </router-link>
       </li>
     </ul>
+    <textarea v-model="room" placeholder="Chatroom name here"></textarea>
+    <button class="btn btn-primary solid blank js-login__submit"
+      @click="submit">Send  </button>
   </div>
 </template>
 
@@ -21,7 +24,8 @@ export default {
   name: 'RoomsList',
   data: function () {
     return {
-      rooms: []
+      rooms: [],
+      room: null
     }
   },
   mounted: function () {
@@ -29,6 +33,15 @@ export default {
       .then(response => {
         this.rooms = response.body
       })
+  },
+  methods: {
+    submit: function () {
+      this.$http.post('http://localhost:3000/api/v1/rooms', { name: this.room })
+        .then(response => {
+          debugger
+          this.$forceUpdate()
+        })
+    }
   }
 }
 

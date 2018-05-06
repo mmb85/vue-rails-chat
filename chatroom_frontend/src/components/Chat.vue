@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>ChaT</h1>
-    <span v-if="messages.length == 0">Loading...</span>
+    <h1> {{ this.room }}</h1>
+    <span v-if="messages.length == 0">No previous message for this Room</span>
     <ul id="example-1">
       <li v-for="(message, index) in lastMessages" v-bind:key="index">
         {{ message }}
@@ -10,6 +10,7 @@
     <textarea v-model="message" placeholder="your message goes here"></textarea>
     <button class="btn btn-primary solid blank js-login__submit"
       @click="submit">Send  </button>
+    <button><a @click="$router.go(-1)">back</a></button>
   </div>
 </template>
 
@@ -38,7 +39,7 @@ export default {
     var that = this
     this.messageChannel = this.$cable.subscriptions.create({ channel: 'MessagesChannel', room: this.room }, {
       received (data) {
-        that.messages.push(data.text)
+        that.messages.push(data.user + ': ' + data.text)
       }
     })
   },
@@ -47,7 +48,7 @@ export default {
       this.$http.post('http://localhost:3000/api/v1/messages', { user: this.$route.query.user, room: this.room, text: this.message })
         .then(response => {
           // this.messages.push(this.message)
-          this.messageChannel.send({ text: this.message })
+          this.messageChannel.send({ text: this.message, user: this.$route.query.user })
           this.message = null
         })
     }

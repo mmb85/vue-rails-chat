@@ -16,7 +16,14 @@ module Api
       end
 
       def index
-        render :json => Message.all.pluck(:text)
+        room = Room.find_by(name: params[:room])
+        messages = Message.where(room: room)
+
+        json = []
+        messages.each do  |message|
+          json << "#{message.user.name}: #{message.text}\n"
+        end
+        render :json => json
       end
     end
   end

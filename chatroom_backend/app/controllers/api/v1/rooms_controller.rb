@@ -13,9 +13,13 @@ module Api
       end
 
       def create
-        Room.create(name: params[:name]) if params[:name]
+        room = Room.new(room_params)
 
-        render :json => {}
+        if room.save
+          render :json => { room: room.name }
+        else
+          render :json => { errors: room.errors.messages }, status: 500
+        end
       end
 
 
@@ -29,12 +33,17 @@ module Api
         destroy
       end
 
-      def lastest_20_message
-        room = Room.find_by(name: params[:name])
-        messages = room.messages.order_by(:created_at => 'desc').limit(20).pluck(:text)
+      # def lastest_20_message
+      #   room = Room.find_by(name: params[:name])
+      #   messages = room.messages.order_by(:created_at => 'desc').limit(20).pluck(:text)
+      #
+      #   render :json => messages.as_json
+      # end
+      private
 
-        render :json => messages.as_json
-      end
+        def room_params
+          params.require(:room).permit(:name)
+        end
     end
   end
 end
