@@ -1,4 +1,22 @@
 # vue-rails-chat
+  Follow entire guide if needed. After download the repository open 3 terminal and execute.
+
+Fronted vue side
+```
+cd chatroom-frontend
+npm run dev   
+```
+Backend rails server
+```
+cd chatroom-backend
+rails s
+```
+
+Action Cable
+```
+cd chatroom-backend
+./bin/cable
+```
 # Rails Backend:
 To launch backend on rails it will be necesary to install:
 ruby 2.5.1
