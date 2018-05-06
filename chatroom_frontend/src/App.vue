@@ -1,14 +1,12 @@
 <template>
-  <router-link to="/roomslist">Go to Foo</router-link>
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import Login from '@/components/Login'
 
 export default {
-  name: 'App',
-  components: {
-    Login
-  }
+  name: 'App'
 }
 </script>

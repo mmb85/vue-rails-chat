@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         get :lastest_20_message
       end
       resource :users
-      resource :messages
+      resources :messages
     end
   end
 end

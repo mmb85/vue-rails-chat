@@ -7,7 +7,7 @@ module Api
           room = Room.find_by(name: params[:room])
           user = User.find_by(name: params[:user])
 
-          Message.create!(text: text, room: room, user: user) if text && room && user
+          message = Message.create!(text: text, room: room, user: user) if text && room && user
 
           render :json => {message: "Message created:\n #{room.name} || #{user.name}\n#{text}"}
         rescue => e
